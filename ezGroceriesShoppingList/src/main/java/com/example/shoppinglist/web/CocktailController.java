@@ -27,7 +27,8 @@ public class CocktailController {
     @ResponseStatus(HttpStatus.OK)
     public CocktailDBResponse getCocktails(@RequestParam(value = "search", required = false) String search) {
 
-        return cocktailDBClient.searchCocktails(search);
+        var result = cocktailDBClient.searchCocktails(search);
+        return result;
     }
 
 }

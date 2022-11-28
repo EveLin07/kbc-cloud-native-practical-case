@@ -1,7 +1,16 @@
 package com.example.shoppinglist.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@Accessors(chain= true)
 public class CocktailDBResponse {
     private List<DrinkResource> drinks;
 
@@ -13,6 +22,8 @@ public class CocktailDBResponse {
         this.drinks = drinks;
     }
 
+    @Getter
+    @Setter
     public static class DrinkResource {
         private String idDrink;
         private String strDrink;
@@ -23,5 +34,4 @@ public class CocktailDBResponse {
         private String strIngredient2;
         private String strIngredient3;
     }
-    //other methods here
 }
