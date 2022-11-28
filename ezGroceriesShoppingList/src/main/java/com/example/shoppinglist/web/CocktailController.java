@@ -2,6 +2,8 @@ package com.example.shoppinglist.web;
 
 import com.example.shoppinglist.data.CocktailDataProvider;
 import com.example.shoppinglist.model.Cocktail;
+import com.example.shoppinglist.model.CocktailDBResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,18 +17,17 @@ import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
+@RequiredArgsConstructor
 public class CocktailController {
+
+
+    private final CocktailDBClient cocktailDBClient;
 
     @GetMapping("/cocktails")
     @ResponseStatus(HttpStatus.OK)
-    public List<Cocktail> getCocktails(@RequestParam(value = "search", required = false) String search) {
+    public CocktailDBResponse getCocktails(@RequestParam(value = "search", required = false) String search) {
 
-        List<Cocktail> cocktails = CocktailDataProvider.getCocktails();
-        log.info("Getting cocktails:...");
-        return Objects.isNull(search)
-                ? cocktails
-                : cocktails.stream().filter(cocktail -> cocktail.getName().contains(search))
-                .collect(Collectors.toList());
+        return cocktailDBClient.searchCocktails(search);
     }
 
 }
